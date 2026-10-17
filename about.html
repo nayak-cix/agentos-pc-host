@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — AgentOS</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    /* Feature Index Interactivity & Matrix Styles */
+    .feature-filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin: 2rem 0 1.5rem;
+    }
+
+    .feature-tabs {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: #101216 !important;
+      border: 1px solid var(--border-subtle) !important;
+      color: var(--text-muted) !important;
+      padding: 0.45rem 1rem !important;
+      font-size: 0.82rem !important;
+      font-weight: 600 !important;
+      border-radius: 8px !important;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      background: var(--accent-peach) !important;
+      border-color: var(--accent-peach) !important;
+      color: #000000 !important;
+    }
+
+    .feature-search-box input {
+      background-color: #101216;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.55rem 1rem;
+      color: #ffffff;
+      font-size: 0.85rem;
+      width: 260px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .feature-search-box input:focus {
+      border-color: var(--accent-peach);
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15);
+    }
+
+    .interactive-card {
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .interactive-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-peach);
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.09);
+    }
+
+    .card-action {
+      margin-top: 1.2rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card-action code {
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 0.76rem;
+      background: #050607;
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      color: var(--accent-peach);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      display: inline-block;
+      overflow-x: auto;
+    }
+
+    .card-action .feature-link {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-off);
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .card-action .feature-link:hover {
+      color: var(--accent-peach);
+      transform: translateX(4px);
+    }
+
+    .matrix-cta-banner {
+      margin-top: 3.5rem;
+      background: radial-gradient(circle at 10% 20%, rgba(245, 158, 11, 0.12), transparent 50%), #0d0d0c;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 16px;
+      padding: 2.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .matrix-cta-banner h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .matrix-cta-banner p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body class="dark-theme">
+  <header class="site-header">
+    <nav class="nav-container">
+      <a href="index.html" class="brand"><span class="brand-char">A</span><span class="brand-char">g</span><span class="brand-char">e</span><span class="brand-char">n</span><span class="brand-char">t</span><span class="brand-char">O</span><span class="brand-char">S</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <a href="learn.html">Learn</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="about-hero">
+      <span class="eyebrow">01 &mdash; Identity &amp; Differentiation</span>
+      <h1>Purpose-Built Agentic Systems</h1>
+      <p>AgentOS is not an AI model, assistant, or orchestration framework. It is an <em>execution substrate</em> built to turn intent into reliable, real-world machine action.</p>
+    </section>
+
+    <section class="anthropic-hero-split">
+      <div class="anthropic-split-container">
+        <div class="anthropic-split-left">
+          <div class="anthropic-split-figure" style="position:relative; width:100%; height:420px; background:#1c1c1a; border-radius:14px; overflow:hidden;">
+            <canvas id="lorenzCanvas" style="display:block; width:100%; height:100%;"></canvas>
+            <div style="position:absolute; bottom:14px; left:18px; pointer-events:none; font-family:monospace; font-size:11px; letter-spacing:0.1em; color:#a6b7a1;">LORENZ ATTRACTOR // REAL-TIME 3D PHASE DYNAMICS</div>
+            <div style="position:absolute; top:14px; right:18px; pointer-events:none; font-family:monospace; font-size:10px; color:#5a5a54;">&sigma;=10 &rho;=28 &beta;=8/3</div>
+          </div>
+          <div class="split-lead-headline">
+            <div class="item-meta">
+              <span class="meta-tag">Fundamental Identity</span>
+              <span class="meta-date">&starf;&starf;&starf;&starf;&starf;</span>
+            </div>
+            <h2>Built Beneath the Intelligence</h2>
+            <p>AI systems can understand intent; AgentOS provides the <u>execution environment</u> through which that intelligence can reliably act across the digital world.</p>
+          </div>
+        </div>
+
+        <div class="anthropic-split-right">
+          <article class="split-side-item">
+            <div class="item-meta">
+              <span class="meta-tag">Architectural Differentiation</span>
+              <span class="meta-date">&starf;&starf;&starf;&starf;&starf;</span>
+            </div>
+            <h3>Intelligence Without Platform Dependency</h3>
+            <p>The execution layer remains independent from the underlying intelligence, allowing <em>different models, agents, and intelligent systems</em> to operate through the same runtime.</p>
+          </article>
+
+          <article class="split-side-item">
+            <div class="item-meta">
+              <span class="meta-tag">Interoperability</span>
+              <span class="meta-date">&starf;&starf;&starf;&starf;&starf;</span>
+            </div>
+            <h3>One Execution Layer. Many Environments.</h3>
+            <p>A unified runtime coordinates intelligent operations across operating systems, devices, applications, APIs, cloud environments, and <u>heterogeneous computing environments</u>.</p>
+          </article>
+
+          <article class="split-side-item">
+            <div class="item-meta">
+              <span class="meta-tag">Agentic Execution</span>
+              <span class="meta-date">&starf;&starf;&starf;&starf;&starf;</span>
+            </div>
+            <h3>From Instructions to Execution</h3>
+            <p>Converts intent into <em>controlled operations</em> involving software, tools, devices, workflows, state, and verification rather than limiting interaction to generated responses.</p>
+          </article>
+
+          <article class="split-side-item">
+            <div class="item-meta">
+              <span class="meta-tag">Ecosystem / Infrastructure</span>
+              <span class="meta-date">&starf;&starf;&starf;&starf;&starf;</span>
+            </div>
+            <h3>A Neutral Layer for Intelligent Systems</h3>
+            <p>The execution infrastructure remains decoupled from individual models, vendors, applications, and platforms, allowing the <u>intelligence and execution layers to evolve independently</u>.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="principle-banner" style="margin-top: 4rem;">
+        <span class="eyebrow">The AgentOS Principle</span>
+        <h2>AI should not only answer. <em>It should execute.</em></h2>
+        <p>AgentOS provides the infrastructure between <u>human intent</u> and <u>machine action</u>.</p>
+      </div>
+    </section>
+
+    <section class="anthropic-features-section" id="features">
+      <div class="feature-header">
+        <span class="eyebrow">02 &mdash; Technical Architecture</span>
+        <h2>Integrated Capabilities Engineered for High-Assurance Workflows</h2>
+        <p>The technical mechanisms and architectural primitives that make the execution layer verifiable, isolated, and deterministic.</p>
+      </div>
+
+      <div class="hybrid-grid">
+        <article class="hybrid-card col-8 sage">
+          <div>
+            <span class="badge sage">Runtime Core &bull; &starf;&starf;&starf;&starf;&starf;</span>
+            <h3>Deterministic Orchestration &amp; Tool Execution</h3>
+            <p>Coordinates multi-agent workflows, parallel operations, asynchronous execution, sandboxed environments, state transitions, retries, and controlled tool invocation.</p>
+          </div>
+          <div class="card-footer">
+            <span>Agent orchestration &bull; Sandboxing &bull; Async/Parallel execution &bull; State-machine integrity &bull; Failure handling</span>
+          </div>
+        </article>
+
+        <article class="hybrid-card col-4 clay">
+          <div>
+            <span class="badge clay">Context Engine &bull; &starf;&starf;&starf;&starf;&starf;</span>
+            <h3>Persistent State &amp; Context</h3>
+            <p>Maintains operational state across tasks and sessions, combining short-term execution context with persistent retrieval and structured state.</p>
+          </div>
+          <div class="card-footer">
+            <span>Persistent context &bull; Episodic state &bull; Dynamic pruning</span>
+          </div>
+        </article>
+
+        <article class="hybrid-card col-4 clay">
+          <div>
+            <span class="badge clay">Policy Runtime &bull; &starf;&starf;&starf;&starf;&starf;</span>
+            <h3>Structural Safety &amp; Oversight</h3>
+            <p>Applies execution policies, permissions, identity controls, approval requirements, and boundary conditions throughout agent operations.</p>
+          </div>
+          <div class="card-footer">
+            <span>Permission enforcement &bull; Policy evaluation &bull; Boundary interventions</span>
+          </div>
+        </article>
+
+        <article class="hybrid-card col-4 sage">
+          <div>
+            <span class="badge sage">Interoperability Layer &bull; &starf;&starf;&starf;&starf;&starf;</span>
+            <h3>Universal Protocol &amp; Tool Adaptation</h3>
+            <p>Connects agents with APIs, applications, databases, browsers, local tooling, enterprise systems, and external services through a unified execution interface.</p>
+          </div>
+          <div class="card-footer">
+            <span>Tool adapters &bull; Application/Browser bridges &bull; Protocol abstraction</span>
+          </div>
+        </article>
+
+        <article class="hybrid-card col-4 clay">
+          <div>
+            <span class="badge clay">Observability Plane &bull; &starf;&starf;&starf;&starf;&star;</span>
+            <h3>Verifiable Execution &amp; Telemetry</h3>
+            <p>Provides visibility into agent decisions, tool calls, execution states, failures, resource utilization, and workflow history.</p>
+          </div>
+          <div class="card-footer">
+            <span>Execution tracing &bull; State inspection &bull; Audit trails &bull; Diagnostics</span>
+          </div>
+        </article>
+      </div>
+
+      <!-- 03: Comprehensive Feature Index (Interactive Capability Matrix) -->
+      <div class="anthropic-editorial-header">
+        <span class="eyebrow">03 &mdash; Functional Capabilities</span>
+        <h2>Comprehensive Feature Index</h2>
+        <p>Explore what the AgentOS runtime executes across real-world workflows and systems.</p>
+
+        <!-- Filter Bar & Search -->
+        <div class="feature-filter-bar">
+         <div class="feature-tabs" id="featureTabs">
+            <button class="tab-btn active" onclick="setCategory('runtime', this)">Runtime &amp; Control</button>
+            <button class="tab-btn" onclick="setCategory('intelligence', this)">Intelligence &amp; State</button>
+            <button class="tab-btn" onclick="setCategory('governance', this)">Security &amp; Policy</button>
+            <button class="tab-btn" onclick="setCategory('developer', this)">Dev &amp; Ecosystem</button>
+          </div>
+          <div class="feature-search-box">
+            <input type="text" id="featureSearch" placeholder="Search features (e.g. Android, sandbox)..." onkeyup="filterFeatures()">
+          </div>
+        </div>
+      </div>
+
+      <div class="editorial-feature-list" id="featureGrid">
+        <!-- 01 -->
+        <article class="editorial-item interactive-card" data-cat="runtime">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">01</span><span class="meta-tag">Runtime</span></div>
+            <div class="editorial-body">
+              <h3>Cross-Platform Agent Runtime</h3>
+              <p>Execute intelligent workflows across <strong>Windows, Linux, macOS, Android, and web environments</strong> through a unified runtime.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos run --target=android</code>
+            <a href="index.html#product" class="feature-link">View Android Capabilities &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 02 -->
+        <article class="editorial-item interactive-card" data-cat="runtime">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">02</span><span class="meta-tag">Control</span></div>
+            <div class="editorial-body">
+              <h3>Natural-Language Computer Control</h3>
+              <p>Convert natural-language instructions into executable operations across applications, interfaces, files, and operating-system environments.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos exec "schedule meeting at 5pm"</code>
+            <a href="index.html#how" class="feature-link">See Execution Flow &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 03 -->
+        <article class="editorial-item interactive-card" data-cat="runtime">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">03</span><span class="meta-tag">Autonomy</span></div>
+            <div class="editorial-body">
+              <h3>Autonomous Task Execution</h3>
+              <p>Plan, execute, verify, recover from failures, and complete multi-step objectives rather than simply generating instructions.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos task --autonomous --verify</code>
+            <a href="index.html#download" class="feature-link">Join the Beta &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 04 -->
+        <article class="editorial-item interactive-card" data-cat="intelligence">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">04</span><span class="meta-tag">Pipelines</span></div>
+            <div class="editorial-body">
+              <h3>Agentic Workflow Engine</h3>
+              <p>Compose actions, tools, APIs, applications, and agents into programmable, repeatable execution pipelines.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos pipeline init --recipe=daily-sync</code>
+            <a href="index.html#modules" class="feature-link">Explore Tool Modules &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 05 -->
+        <article class="editorial-item interactive-card" data-cat="intelligence">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">05</span><span class="meta-tag">Intelligence</span></div>
+            <div class="editorial-body">
+              <h3>Local + Cloud Intelligence</h3>
+              <p>Combine local models, cloud models, and deterministic software components according to privacy, latency, cost, and capability requirements.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos model route --prefer=local</code>
+            <a href="index.html#how" class="feature-link">View Architecture &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 06 -->
+        <article class="editorial-item interactive-card" data-cat="developer">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">06</span><span class="meta-tag">Tooling</span></div>
+            <div class="editorial-body">
+              <h3>Universal Tool &amp; API Layer</h3>
+              <p>Give agents a consistent interface for interacting with APIs, databases, browsers, applications, enterprise systems, and developer tools.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos tools register --module=calendar</code>
+            <a href="index.html#modules" class="feature-link">Inspect Modules &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 07 -->
+        <article class="editorial-item interactive-card" data-cat="intelligence">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">07</span><span class="meta-tag">State</span></div>
+            <div class="editorial-body">
+              <h3>Persistent Context &amp; Memory</h3>
+              <p>Retain relevant operational context across tasks and sessions, allowing agents to understand previous actions, current state, and subsequent objectives.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos memory recall --session=active</code>
+            <a href="learn.html" class="feature-link">Read Documentation &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 08 -->
+        <article class="editorial-item interactive-card" data-cat="runtime">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">08</span><span class="meta-tag">Coordination</span></div>
+            <div class="editorial-body">
+              <h3>Multi-Agent Orchestration</h3>
+              <p>Coordinate specialized agents across research, coding, analysis, operations, automation, and other complex workflows.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos subagents spawn --count=3</code>
+            <a href="index.html#how" class="feature-link">Agent Loop Architecture &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 09 -->
+        <article class="editorial-item interactive-card" data-cat="governance">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">09</span><span class="meta-tag">Security</span></div>
+            <div class="editorial-body">
+              <h3>Secure Execution</h3>
+              <p>Control agent access through authentication, permissions, isolated execution environments, restricted tools, and execution policies.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos sandbox --policy=isolated</code>
+            <a href="index.html#privacy" class="feature-link">Security Guardrails &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 10 -->
+        <article class="editorial-item interactive-card" data-cat="governance">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">10</span><span class="meta-tag">Governance</span></div>
+            <div class="editorial-body">
+              <h3>Human-in-the-Loop Control</h3>
+              <p>Allow users to review, approve, interrupt, modify, or reject agent operations when human intervention is required.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos policy require-approval --level=critical</code>
+            <a href="index.html#privacy" class="feature-link">Review Privacy &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 11 -->
+        <article class="editorial-item interactive-card" data-cat="runtime">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">11</span><span class="meta-tag">Peripherals</span></div>
+            <div class="editorial-body">
+              <h3>Remote Device Control</h3>
+              <p>Operate connected computers and devices through the AgentOS execution layer, enabling cross-device and mobile-to-computer workflows.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos bridge --target=desktop</code>
+            <a href="index.html" class="feature-link">Device Bridge &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 12 -->
+        <article class="editorial-item interactive-card" data-cat="developer">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">12</span><span class="meta-tag">SDK</span></div>
+            <div class="editorial-body">
+              <h3>Developer Platform</h3>
+              <p>Build custom agents, tools, integrations, workflows, and applications on top of AgentOS through APIs and SDKs.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>npm install @agentos/sdk</code>
+            <a href="contact.html" class="feature-link">Request SDK Access &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 13 -->
+        <article class="editorial-item interactive-card" data-cat="developer">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">13</span><span class="meta-tag">Operations</span></div>
+            <div class="editorial-body">
+              <h3>Enterprise Automation</h3>
+              <p>Execute repetitive and structured operational workflows across data processing, documentation, internal systems, and business processes.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos batch run --workflow=enterprise</code>
+            <a href="contact.html" class="feature-link">Enterprise Inquiries &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 14 -->
+        <article class="editorial-item interactive-card" data-cat="governance">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">14</span><span class="meta-tag">Telemetry</span></div>
+            <div class="editorial-body">
+              <h3>Observability &amp; Auditability</h3>
+              <p>Record agent actions, tool calls, execution states, failures, workflow history, and system telemetry for debugging, analysis, and accountability.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos trace --tail=live</code>
+            <a href="learn.html" class="feature-link">Documentation &rarr;</a>
+          </div>
+        </article>
+
+        <!-- 15 -->
+        <article class="editorial-item interactive-card" data-cat="governance">
+          <div>
+            <div class="editorial-meta"><span class="num-badge">15</span><span class="meta-tag">Boundaries</span></div>
+            <div class="editorial-body">
+              <h3>Policy-Driven Autonomy</h3>
+              <p>Define precisely what an agent can execute, what requires approval, what is prohibited, and where execution must stop.</p>
+            </div>
+          </div>
+          <div class="card-action">
+            <code>agentos enforce --contract=strict</code>
+            <a href="index.html#privacy" class="feature-link">View Boundaries &rarr;</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Traffic Driver Callout Banner -->
+      <div class="matrix-cta-banner">
+        <div>
+          <h3>Ready to experience autonomous execution on your device?</h3>
+          <p>Explore AgentOS on Android or join the beta to test tool-driven autonomy.</p>
+        </div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="index.html#download" class="btn">Get AgentOS for Android &rarr;</a>
+          <a href="index.html#product" class="btn" style="background:#16181d !important; color:#ffffff !important; border-color:#2a2b30 !important;">Explore Architecture</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-branding">
+        <span class="footer-brand-title">AgentOS</span>
+        <span class="footer-tagline">Autonomous Execution Infrastructure</span>
+      </div>
+      <div class="footer-social-links">
+        <a href="https://x.com/YOUR_HANDLE" target="_blank" rel="noopener noreferrer" class="footer-social-icon" title="X (Twitter)"><svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://instagram.com/YOUR_HANDLE" target="_blank" rel="noopener noreferrer" class="footer-social-icon" title="Instagram"><svg viewBox="0 0 24 24" width="22" height="22"><defs><radialGradient id="instaGradAb" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><path fill="url(#instaGradAb)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="mailto:YOUR_EMAIL@example.com" class="footer-social-icon" title="Email"><svg viewBox="0 0 24 24" width="22" height="22" fill="#EA4335"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+        <a href="https://linkedin.com/in/YOUR_HANDLE" target="_blank" rel="noopener noreferrer" class="footer-social-icon" title="LinkedIn"><svg viewBox="0 0 24 24" width="22" height="22" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg></a>
+        <a href="https://youtube.com/@YOUR_HANDLE" target="_blank" rel="noopener noreferrer" class="footer-social-icon" title="YouTube"><svg viewBox="0 0 24 24" width="22" height="22" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+        <a href="https://discord.gg/YOUR_INVITE" target="_blank" rel="noopener noreferrer" class="footer-social-icon" title="Discord"><svg viewBox="0 0 24 24" width="22" height="22" fill="#5865F2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactivity Script for Category Filtering & Search -->
+ <!-- Interactivity Script for Category Filtering & Search -->
+  <script>
+    let activeCategory = 'runtime';
+
+    function setCategory(category, buttonEl) {
+      activeCategory = category;
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      buttonEl.classList.add('active');
+      filterFeatures();
+    }
+
+    function filterFeatures() {
+      const searchVal = document.getElementById('featureSearch').value.toLowerCase().trim();
+      const cards = document.querySelectorAll('.interactive-card');
+
+      cards.forEach(card => {
+        const matchesCategory = (card.getAttribute('data-cat') === activeCategory);
+        const cardText = card.innerText.toLowerCase();
+        const matchesSearch = !searchVal || cardText.includes(searchVal);
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Page load par pehli category filter ho kar dikhegi
+    document.addEventListener('DOMContentLoaded', filterFeatures);
+    filterFeatures();
+  </script>
+
+  <!-- Lorenz Attractor Animation Canvas -->
+<script>
+  (function() {
+    const canvas = document.getElementById('lorenzCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+      const parent = canvas.parentElement;
+      const width = parent.clientWidth || 600;
+      const height = parent.clientHeight || 420;
+      const dpr = window.devicePixelRatio || 1;
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+    }
+
+    // Run resize when DOM and styles are completely ready
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      resize();
+    } else {
+      window.addEventListener('DOMContentLoaded', resize);
+    }
+    window.addEventListener('resize', resize);
+    window.addEventListener('load', resize);
+
+    const sigma = 10;
+    const rho = 28;
+    const beta = 8 / 3;
+    const dt = 0.008;
+
+    const numTrajectories = 8;
+    const maxHistory = 450;
+    const trajectories = [];
+
+    for (let i = 0; i < numTrajectories; i++) {
+      trajectories.push({
+        x: 0.1 + (i * 0.15),
+        y: 0.1,
+        z: 20 + (i * 0.4),
+        history: [],
+        color: i % 2 === 0 ? '#a6b7a1' : '#d4c8b5'
+      });
+    }
+
+    let angleY = 0.8;
+    let angleX = 0.25;
+
+    function project(x, y, z, cx, cy, scale) {
+      const zOffset = z - 27;
+      const cosY = Math.cos(angleY);
+      const sinY = Math.sin(angleY);
+      let x1 = x * cosY - zOffset * sinY;
+      let z1 = x * sinY + zOffset * cosY;
+
+      const cosX = Math.cos(angleX);
+      const sinX = Math.sin(angleX);
+      let y2 = y * cosX - z1 * sinX;
+      let z2 = y * sinX + z1 * cosX;
+
+      const fov = 120;
+      const distance = 90;
+      const pScale = (fov / (distance + z2)) * scale;
+
+      return {
+        x: cx + x1 * pScale,
+        y: cy - y2 * pScale,
+        depth: z2
+      };
+    }
+
+    function animate() {
+      // Ensure canvas has valid dimensions before drawing
+      if (canvas.width === 0 || canvas.height === 0) {
+        resize();
+      }
+
+      ctx.fillStyle = '#1c1c1a';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      const dpr = window.devicePixelRatio || 1;
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2 + 10;
+      const scale = Math.max(Math.min(canvas.width, canvas.height) * 0.024, 8);
+
+      angleY += 0.004;
+
+      // Draw faint axis line
+      ctx.strokeStyle = '#272723';
+      ctx.lineWidth = 1 * dpr;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - 160 * dpr);
+      ctx.lineTo(cx, cy + 160 * dpr);
+      ctx.stroke();
+
+      trajectories.forEach((traj) => {
+        for (let s = 0; s < 4; s++) {
+          const dx = sigma * (traj.y - traj.x);
+          const dy = traj.x * (rho - traj.z) - traj.y;
+          const dz = traj.x * traj.y - beta * traj.z;
+
+          traj.x += dx * dt;
+          traj.y += dy * dt;
+          traj.z += dz * dt;
+
+          traj.history.push({ x: traj.x, y: traj.y, z: traj.z });
+          if (traj.history.length > maxHistory) {
+            traj.history.shift();
+          }
+        }
+
+        if (traj.history.length > 1) {
+          for (let j = 1; j < traj.history.length; j++) {
+            const p1 = project(traj.history[j - 1].x, traj.history[j - 1].y, traj.history[j - 1].z, cx, cy, scale);
+            const p2 = project(traj.history[j].x, traj.history[j].y, traj.history[j].z, cx, cy, scale);
+
+            const alpha = j / traj.history.length;
+            ctx.strokeStyle = traj.color;
+            ctx.globalAlpha = alpha * 0.85;
+            ctx.lineWidth = alpha * 2.2 * dpr;
+
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+
+          const head = project(traj.x, traj.y, traj.z, cx, cy, scale);
+          ctx.fillStyle = '#fbfaf8';
+          ctx.globalAlpha = 1.0;
+          ctx.beginPath();
+          ctx.arc(head.x, head.y, 2.5 * dpr, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      });
+
+      ctx.globalAlpha = 1.0;
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  })();
+  </script>
+</body>
+</html>
